@@ -54,7 +54,7 @@ header nav p {
 }
 
 header nav a:any-link {
-  color: currentcolor;
+  color: var(--white);
 }
 
 /* hamburger */
@@ -187,6 +187,14 @@ header nav .nav-sections ul > li > ul > li {
 }
 
 @media (width >= 900px) {
+  header{
+    position: absolute;
+  }
+  
+  header .nav-wrapper{
+    background-color:  transparent;
+  }
+
   header nav .nav-sections {
     display: block;
     visibility: visible;
@@ -225,6 +233,7 @@ header nav .nav-sections ul > li > ul > li {
 
   header nav .nav-sections ul {
     display: flex;
+    justify-content: end;
     gap: 2em;
     margin: 0;
     font-size: var(--body-font-size-xs);

@@ -12,6 +12,8 @@
 
 :root {
   /* colors */
+  --white: #fff;
+  --black: #000;
   --link-color: #035fe6;
   --link-hover-color: #136ff6;
   --background-color: white;
