@@ -15,4 +15,20 @@ export default function decorate(block) {
   ul.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
   block.textContent = '';
   block.append(ul);
+
+
+  const dotContainer = document.createElement('div');
+  dotContainer.classList.add('dot-container');
+  const dots = ['dot1 active', 'dot2', 'arrow'];
+  dots.forEach((className) => {
+    const div = document.createElement('div');
+    className.split(' ').forEach((cls) => {
+      div.classList.add(cls);
+    });
+    dotContainer.append(div);
+  });
+  block.append(dotContainer);
+
 }
+
+

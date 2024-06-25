@@ -41,3 +41,24 @@
   object-fit: cover;
   border-radius: 20px;
 }
+
+
+.cards .dot-container{
+  margin-top: 1rem;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+
+  .dot1 , .dot2{
+        width: 10px;
+          height: 10px;
+          border: 1px solid var(--black);
+          border-radius: 100%;
+          
+          &.active{
+            background-color: var(--black);
+          }
+  }
+}
