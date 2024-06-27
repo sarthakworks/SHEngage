@@ -3,9 +3,11 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
+  ul.classList.add("card-container");
   [...block.children].forEach((row) => {
     console.log(row);
     const li = document.createElement('li');
+    li.classList.add("card-slide");
     while (row.firstElementChild) li.append(row.firstElementChild);
     [...li.children].forEach((div) => {
       if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
@@ -16,7 +18,6 @@ export default function decorate(block) {
   ul.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
   block.textContent = '';
   block.append(ul);
-
 
   const dotContainer = document.createElement('div');
   dotContainer.classList.add('dot-container');
@@ -29,6 +30,49 @@ export default function decorate(block) {
     dotContainer.append(div);
   });
   block.append(dotContainer);
+
+
+  //start of carousal code 
+  const buttonBack = document.querySelector('.dot1');
+  const buttonNext = document.querySelector('.dot2');
+  const listOfCardElements = document.querySelectorAll('.card-slide');
+  const cardElement = document.querySelector('.card-slide');
+  const cardContainer = document.querySelector('.card-container');
+  let currentCard = 0;
+
+
+  
+  function setScrollTo() {
+    const scrollLeft = currentCard * listOfCardElements[0].offsetWidth;
+    console.log("scroll", scrollLeft)
+    cardContainer.scrollTo({left: scrollLeft, behavior: 'smooth'});
+  }
+  
+  buttonBack.addEventListener('click', () => {
+    console.log("hi inside back")
+    if (currentCard > 0) {
+      currentCard--;
+    }
+    setScrollTo();
+  });
+  
+  buttonNext.addEventListener('click', () => {
+    console.log("hi inside next")
+    if (currentCard < listOfCardElements.length - 1) {
+      currentCard++;
+    }
+    setScrollTo();
+  });
+  
+  listOfCardElements.forEach((cardElement, index) => {
+    cardElement.addEventListener('click', () => {
+      currentCard = index;
+      console.log("cur", currentCard)
+      const scrollLeft = currentCard * listOfCardElements[0].offsetWidth;
+      cardContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    });
+  });
+  //carousal code end
 
 }
 
