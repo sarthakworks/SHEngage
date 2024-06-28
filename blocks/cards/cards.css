@@ -11,7 +11,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Centering elements */
 }
 
 .cards > ul > li {
@@ -63,25 +63,21 @@
 }
 
 ul.card-container {
-  width: 100%; /* Width of card container */
-  display: flex; /* Set inline elements */
- 
-  overflow-x: auto; /* Set overflow in horizontal scroll */
-  overflow-y: hidden; /* Hidden overflow in vertical scroll */
-  scroll-snap-type: x mandatory; /* Force the scroll to snap to the start of a scroll-snap area */
-  
-  flex: 0 0 calc(100% - 16px); /* Set width of card container */
+  width: 100%;
+  display: flex;
+  overflow:auto hidden;
+  scroll-snap-type: x mandatory;
+  flex: 0 0 calc(100% - 16px);
 }
 
 .card-container::-webkit-scrollbar {
-  display: none; /* Hide scrollbar in Chrome, Safari and Opera */
+  display: none;
 }
 
 
 li.card-slide {
-  min-width: 220px; /* Set min width of card */
-  scroll-snap-align: start; /* Set scroll snap */
-  /* Style card */
+  min-width: 220px; 
+  scroll-snap-align: start; 
   display: flex;
   flex-direction: column;
   justify-content: center;
