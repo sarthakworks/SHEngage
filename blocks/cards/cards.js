@@ -3,9 +3,10 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
+  ul.classList.add('card-container');
   [...block.children].forEach((row) => {
-    console.log(row);
     const li = document.createElement('li');
+    li.classList.add('card-slide');
     while (row.firstElementChild) li.append(row.firstElementChild);
     [...li.children].forEach((div) => {
       if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
@@ -16,7 +17,6 @@ export default function decorate(block) {
   ul.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
   block.textContent = '';
   block.append(ul);
-
 
   const dotContainer = document.createElement('div');
   dotContainer.classList.add('dot-container');
@@ -30,6 +30,38 @@ export default function decorate(block) {
   });
   block.append(dotContainer);
 
+  // start of carousal code
+  const buttonBack = document.querySelector('.dot1');
+  const buttonNext = document.querySelector('.dot2');
+  const listOfCardElements = document.querySelectorAll('.card-slide');
+  const cardContainer = document.querySelector('.card-container');
+  let currentCard = 0;
+
+  function setScrollTo() {
+    const scrollLeft = currentCard * listOfCardElements[0].offsetWidth;
+    cardContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+  }
+
+  buttonBack.addEventListener('click', () => {
+    if (currentCard > 0) {
+      currentCard -= 1;
+    }
+    setScrollTo();
+  });
+
+  buttonNext.addEventListener('click', () => {
+    if (currentCard < listOfCardElements.length - 1) {
+      currentCard += 1;
+    }
+    setScrollTo();
+  });
+
+  listOfCardElements.forEach((cardElement, index) => {
+    cardElement.addEventListener('click', () => {
+      currentCard = index;
+      const scrollLeft = currentCard * listOfCardElements[0].offsetWidth;
+      cardContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    });
+  });
+  // carousal code end
 }
-
-
